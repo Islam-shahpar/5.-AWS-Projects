@@ -1,11 +1,85 @@
 Step 1: Register a Custom Domain with Route 53
+  -> AWS Management Console -> Services -> Route 53 
+  -> Domain Registrations -> Domains
+  -> Register domains -> Check -> "shahpar-islam.com" 
+  -> Add to cart -> Continue to Billing policy
+ 
 Step 2: Create Two Buckets
+  -> Services -> S3 
+  -> Create Domain Bucket -> Bucket Name : (shahpar-islam.com) -> Choose Region -> Default Settings -> Create
+  -> Create Subdomain Bucket -> Bucket Name : (www.shahpar-islam.com) -> Choose Region -> Default Settings -> Create
+  
 Step 3: Configure Your Root Domain Bucket for Website Hosting
+  -> Choose bucket : shahpar-islam.com -> properties
+  -> Static Website Hosting -> Use this bucket to host a website 
+  -> index document -> index.html ->save
+  
 Step 4: Configure Your Subdomain Bucket for Website Redirect
-Step 5: Configure Logging for Website Traffic
+  -> Choose bucket : www.shahpar-islam.com -> properties
+  -> Static Website Hosting -> Redirect requests 
+  -> Target bucket or domain -> shahpar-islam.com -> protocol -> http
+  -> save
+  
+Step 5: Configure Logging for Website Traffic (Optional)
+  -> Services -> S3 
+  -> Create Domain Bucket -> Bucket Name : (logs.shahpar-islam.com) -> Choose Region -> Default Settings -> Create
+  -> Create two folders "root" and "cdn"
+  -> Go to "shahpar-islam.com" bucket -> properties -> Server Access Logging -> Enable Logging
+  -> Target bucket -> logs.shahpar-islam.com -> target prefix -> root/ -> save
+  
 Step 6: Upload Index and Website Content
+  -> create an "index.html" file
+  -> S3 -> choose "shahpar-islam.com" -> upload -> add file 
+  
 Step 7: Edit Block Public Access Settings
+  -> S3 -> choose "shahpar-islam.com"  
+  -> Permission -> uncheck block public access -> confirm -> save
+  
 Step 8: Attach a Bucket Policy
+  -> S3 -> choose "shahpar-islam.com"
+  -> Policy -> Paste the below policy
+  
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::shahpar-islam.com/*"
+            ]
+        }
+    ]
+}
+
+  -> save
+  
 Step 9: Test Your Domain Endpoint
+  ->  http://shahpar-islam.com.s3-website-us-east-1.amazonaws.com
+
 Step 10: Add Alias Records for Your Domain and Subdomain
+  -> Domain
+  -> Route 53 -> DNS Management -> Hosted Zones -> Create Record Set 
+  -> name : same as "shahpar-islam.com"
+  -> Type : IPv4
+  -> Alias : Yes
+  -> Alias Target : shahpar-islam.com.s3-website-us-east-1.amazonaws.com
+  -> Routing Policy : Simple
+  -> Evaluate Target Health : No
+  
+  -> Subdomain
+  -> Route 53 -> DNS Management -> Hosted Zones -> Create Record Set 
+  -> name : same as "www.shahpar-islam.com"
+  -> Type : IPv4
+  -> Alias : Yes
+  -> Alias Target : www.shahpar-islam.com.s3-website-us-east-1.amazonaws.com
+  -> Routing Policy : Simple
+  -> Evaluate Target Health : No
+
 Step 11: Test the Website
+  -> check http:/shahpar-islam.com
+  -> check http:/www.shahpar-islam.com
