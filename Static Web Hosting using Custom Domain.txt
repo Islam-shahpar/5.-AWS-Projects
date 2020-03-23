@@ -1,0 +1,11 @@
+Step 1: Register a Custom Domain with Route 53
+Step 2: Create Two Buckets
+Step 3: Configure Your Root Domain Bucket for Website Hosting
+Step 4: Configure Your Subdomain Bucket for Website Redirect
+Step 5: Configure Logging for Website Traffic
+Step 6: Upload Index and Website Content
+Step 7: Edit Block Public Access Settings
+Step 8: Attach a Bucket Policy
+Step 9: Test Your Domain Endpoint
+Step 10: Add Alias Records for Your Domain and Subdomain
+Step 11: Test the Website
