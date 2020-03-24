@@ -1,0 +1,54 @@
+DEPLOY A NODE.JS WEB APP IN AWS
+
+#Sections
+
+1. Prerequisites
+    - Before you start, download the sample application source bundle from GitHub: eb-node-express-sample-v1.1.zip.
+
+2. Launch an Elastic Beanstalk environment
+    -> Launch Elastic Beanstalk with preconfigured link
+    -> console.aws.amazon.com/elasticbeanstalk/home#/newApplication?applicationName=tutorials&environmentType=LoadBalanced
+    -> Platform -> Node.JS
+    -> Application Code -> Sample Application
+    -> Review and launch
+
+3. Add permissions to your environment's instances
+    -> AWS Management Console -> Services -> IAM
+    -> Choose -> aws-elasticbeanstalk-ec2-role
+    -> Permissions -> Attach Policies
+    -> Select -> AmazonDynamoDBFullAccess
+    -> Select -> AmazonSNSFullAccess
+    -> Choose -> Attach Policies
+
+4. Deploy the sample application
+    -> Elastic Beanstalk Management Page -> Upload and Deploy
+    -> Upload the zipped file of the downloaded code
+    -> Deploy
+    #View the table
+    -> DynamoDB -> Tables
+    -> StartSignUp table -> items -> Start Search
+    #View the topic
+    -> Amazon SNS -> NewSignupTopic -> topic -> View
+
+5. Create a DynamoDB table
+    -> DynamoDB -> Create table
+    -> Table Name :  nodejs-tutorial
+    -> Primary-key : email
+    -> Primary key type : String 
+    -> Create
+
+6. Update the application's configuration files
+    -> .ebextensions/options.config
+    -> NewSignupEmail: shahpar.islam@yahoo.com
+    -> STARTUP_SIGNUP_TABLE: nodejs-tutorial
+    -> Remove .ebextensions/create-dynamodb-table.config.
+    -> zip nodejs-tutorial.zip -r * .[^.]*
+
+7. Configure your environment for high availability
+    -> EB Management Page -> Configuration 
+    -> Capacity -> Edit -> Auto Scaling Group -> Min instance -> 2
+    -> Apply
+
+8. Cleanup
+    -> EB Management page -> Action -> Terminate environment
+    -> DynamoDB -> Actions -> Delete Table
