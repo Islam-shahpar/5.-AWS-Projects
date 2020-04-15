@@ -1,0 +1,14 @@
+1. Why do we need Database?
+Answer: To store data, that will persist. Whenever we store data in database, the data will not be lost due to power outage
+or network failure.
+
+2. How to avoid database failure?
+Answer: We can create DB replica and update it synchronously or asynchronously. Whenever the master DB fails the replice 
+takes over. 
+
+3. Problem of replication?
+Answer: Overwriting a lot of data.
+
+4. What is sharding?
+Answer: Dividing the master database into smaller database, then implement a strategy to distribute the data into 
+different shards.
