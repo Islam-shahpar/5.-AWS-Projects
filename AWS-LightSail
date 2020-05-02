@@ -1,0 +1,16 @@
+Goal:
+  Create a wordpress personal website hosted by AWS Lightsail service.
+
+Working Steps:
+  1. Create the wordpress instance in Lightsail.
+  2. Create a staticIP for the instance.
+  3. Retrieve the password using bitnami(bottom-right corner of the page) tutorial.
+  
+Using custom Domain Name:
+  1. Register a domain name using Route53
+  2. Create a record set in Route53 for staticIP of Lightsail instance.
+  3. Follow below link to create certificates:
+  https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-using-lets-encrypt-certificates-with-wordpress#install-certbot-on-your-instance-wordpress
+  4. Create TXT record set in Route53 (Not only in Lightsail) 
+
+  
