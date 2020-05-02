@@ -12,5 +12,17 @@ Using custom Domain Name:
   3. Follow below link to create certificates:
   https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-using-lets-encrypt-certificates-with-wordpress#install-certbot-on-your-instance-wordpress
   4. Create TXT record set in Route53 (Not only in Lightsail) 
+  
+Wordpress Theme:
+  1. Education LMS
+
+Plugins:
+  1. Learnpress
+  2. LearnPress - Course Review
+  3. Elementaor
+  4. JetPack
+  5. One Click Demo
+  6. WooCommerce
+  7. Really Simple SSL
 
   
